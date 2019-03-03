@@ -12,8 +12,8 @@ def ffprobe_sync(file) -> dict:
     return json.loads(meta)
 
 def test_duration():
-    fnin = "./test_video.mp4"
-    fnout = "./test_video.mp4_480.mp4"
+    fnin = "C:/Users/96171/PycharmProjects/exercise2_ec500/test_video.mp4"
+    fnout = "C:/Users/96171/PycharmProjects/exercise2_ec500/test_video.mp4_480.mp4"
 
     orig_meta = ffprobe_sync(fnin)
     orig_duration = float(orig_meta['streams'][0]['duration'])
