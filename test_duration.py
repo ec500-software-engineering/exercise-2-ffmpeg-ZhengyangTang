@@ -1,7 +1,7 @@
 from pytest import approx
 import subprocess
 import json
-
+import myffmpeg.ffprobe as probe
 
 def ffprobe(file) -> dict:
     meta = subprocess.check_output(['ffprobe', '-v', 'warning',
@@ -12,14 +12,14 @@ def ffprobe(file) -> dict:
     return json.loads(meta)
 
 def test_duration():
-    fnin = "C:/Users/96171/PycharmProjects/exercise2_ec500/test_video.mp4"
-    fnout = "C:/Users/96171/PycharmProjects/exercise2_ec500/test_video.mp4_480.mp4"
+    fnin = "./test_video.mp4"
+    fnout = "./test_video.mp4_480.mp4"
 
-    orig_meta = ffprobe(fnin)
+    orig_meta = probe.ffprobe(fnin)
     orig_duration = float(orig_meta['streams'][0]['duration'])
 
 
-    meta_480 = ffprobe(fnout)
+    meta_480 = probe.ffprobe(fnout)
     duration_480 = float(meta_480['streams'][0]['duration'])
 
     assert round(orig_duration) == approx(round(duration_480))
