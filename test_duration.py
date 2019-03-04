@@ -3,7 +3,7 @@ import subprocess
 import json
 
 
-def ffprobe(file) -> dict:
+def ffprobe(file):
     meta = subprocess.check_output(['ffprobe', '-v', 'warning',
                                     '-print_format', 'json',
                                     '-show_streams',
