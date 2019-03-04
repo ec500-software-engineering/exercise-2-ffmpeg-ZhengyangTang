@@ -8,12 +8,12 @@ def ffprobe(file):
                                     '-print_format', 'json',
                                     '-show_streams',
                                     '-show_format',
-                                    str(file)],universal_newlines=True)
+                                    file],universal_newlines=True)
     return json.loads(meta)
 
-def test_duration():
-    fnin = "./test_video.mp4"
-    fnout = "./test_video.mp4_480.mp4"
+def test_duration() -> dict:
+    fnin = "test_video.mp4"
+    fnout = "test_video.mp4_480.mp4"
 
     orig_meta = ffprobe(fnin)
     orig_duration = float(orig_meta['streams'][0]['duration'])
