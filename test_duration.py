@@ -4,18 +4,18 @@ from pathlib import Path
 from pytest import approx
 
 def ffprobe(file: Path) -> dict:
-    meta_json = subprocess.check_output(['ffprobe', '-v', 'warning', '-print_format',
+    meta1 = subprocess.check_output(['ffprobe', '-v', 'warning', '-print_format',
                                          'json', '-show_streams', '-show_format', file],
                                         universal_newlines = True)
-    return json.loads(meta_json)
+    return json.loads(meta1)
 
 def test_duration():
 
-    orig_meta = ffprobe('test_video.mp4')
-    meta_480 = ffprobe('test_video.mp4_480.mp4')
-    #meta_720 = ffprobe('transcoded_video_720p.mp4')
-    video_duration = float(orig_meta['streams'][0]['duration'])
-    video_480_duration = float(meta_480['streams'][0]['duration'])
-    #video_720_duration = float(meta_720['streams'][0]['duration'])
-    assert video_duration == approx(video_480_duration)
-    #assert video_duration == approx(video_720_duration)
+    original_meta = ffprobe('test_video.mp4')
+    t480_meta = ffprobe('test_video.mp4_480.mp4')
+
+    duration = float(original_meta['streams'][0]['duration'])
+    t480_duration = float(t480_meta['streams'][0]['duration'])
+   
+    assert duration == approx(t480_duration)
+
